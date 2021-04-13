@@ -1,9 +1,9 @@
-
-
 const path = require('path')
 const resolve = dir => path.join(__dirname, dir)
 const isProd = process.env.NODE_ENV === 'production' ? true : false
-
+const devServerPort = 9527
+const mockServerPort = 9528
+const name = 'LZH~'
 module.exports = {
     publicPath: '/',
     outputDir: 'dist',
@@ -11,14 +11,26 @@ module.exports = {
     lintOnSave: false,
     productionSourceMap: false,
     devServer: {
-        port: 9528,
+        port: devServerPort,
         open: true,
         overlay: {
             warnings: false,
             errors: true
         },
+        progress: false,
+        proxy: {
+            [process.env.VUE_APP_BASE_API]: {
+                target: `http://127.0.0.1:${mockServerPort}/`,
+                changeOrigin: true,
+                ws: true,
+                pathRewrite: {
+                    ['^' + process.env.VUE_APP_BASE_API]: ''
+                }
+            }
+        }
     },
     configureWebpack: {
+        name: name,
         resolve: {
             alias: {
                 '@': resolve('src')
@@ -27,9 +39,13 @@ module.exports = {
     },
     chainWebpack(config) {
         config
-            .when(!isProd,
+            .when(process.env.NODE_ENV === 'development',
                 config => config.devtool('cheap-source-map')
             )
+        config.plugin('html').tap(args => {
+            args[0].title = name
+            return args
+        })
         config
             .optimization.splitChunks({
                 chunks: 'all',
