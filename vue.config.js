@@ -4,6 +4,7 @@ const isProd = process.env.NODE_ENV === 'production' ? true : false
 const devServerPort = 9527
 const mockServerPort = 9528
 const name = 'LZH~'
+console.log(process.env.NODE_ENV)
 module.exports = {
     publicPath: '/',
     outputDir: 'dist',
@@ -39,8 +40,8 @@ module.exports = {
     },
     chainWebpack(config) {
         config
-            .when(process.env.NODE_ENV === 'development',
-                config => config.devtool('cheap-source-map')
+            .when(!isProd,
+                config => config.devtool('cheap-module-source-map')
             )
         config.plugin('html').tap(args => {
             args[0].title = name
