@@ -34,6 +34,7 @@ const actions = {
             login(userInfo).then(response => {
                 const { data } = response
                 commit('SET_TOKEN', data.token)
+                commit('SET_NAME', data.name)
                 setToken(data.token)
                 resolve(response)
             }).catch(error => {
