@@ -32,6 +32,7 @@ var actions = {
             user_1.login(userInfo).then(function (response) {
                 var data = response.data;
                 commit('SET_TOKEN', data.token);
+                commit('SET_NAME', data.name);
                 cookie_1.setToken(data.token);
                 resolve(response);
             })["catch"](function (error) {
