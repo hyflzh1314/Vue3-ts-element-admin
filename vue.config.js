@@ -34,7 +34,10 @@ module.exports = {
         name: name,
         resolve: {
             alias: {
-                '@': resolve('src')
+                '@': resolve('src'),
+                '@views': resolve('src/views'),
+                '@component': resolve('src/components'),
+                '@api': resolve('src/api')
             }
         }
     },
@@ -47,6 +50,21 @@ module.exports = {
             args[0].title = name
             return args
         })
+        config.module
+            .rule('svg')
+            .exclude.add(resolve('src/icons'))
+            .end()
+        config.module
+            .rule('icons')
+            .test(/\.svg$/)
+            .include.add(resolve('src/icons'))
+            .end()
+            .use('svg-sprite-loader')
+            .loader('svg-sprite-loader')
+            .options({
+                symbolId: 'icon-[name]'
+            })
+            .end()
         config
             .optimization.splitChunks({
                 chunks: 'all',

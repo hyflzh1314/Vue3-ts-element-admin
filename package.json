@@ -13,15 +13,19 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "element-plus": "^1.0.2-beta.40",
+    "js-cookie": "^2.2.1",
+    "nprogress": "^0.2.0",
     "qs": "^6.10.1",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
+    "@types/js-cookie": "^2.2.6",
     "@types/koa": "^2.13.1",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-router": "^7.4.1",
+    "@types/nprogress": "^0.2.0",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -40,6 +44,7 @@
     "koa-router": "^10.0.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.2",
+    "svg-sprite-loader": "^6.0.5",
     "ts-node-dev": "^1.1.6",
     "typescript": "~4.1.5"
   }
