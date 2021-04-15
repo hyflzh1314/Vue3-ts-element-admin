@@ -70,6 +70,9 @@ export default defineComponent({
             .then(res => {
               if (res.code === 200) {
                 console.log(res);
+                router.push({
+                  path: '/'
+                })
               }
               loading.value = false;
             })

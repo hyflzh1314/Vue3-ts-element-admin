@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 const app = createApp(App)
+// permission
+import '@/permission'
 
 // 引入 element plus
 import ElementPlus from 'element-plus'
@@ -17,6 +19,8 @@ const requireAll = (requireContext: any) => requireContext.keys().map(requireCon
 requireAll(req)
 import SvgIcon from '@/components/SvgIcon/index.vue'
 app.component('svg-icon', SvgIcon)
+
+
 
 
 app.use(ElementPlus)

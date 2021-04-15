@@ -1,9 +1,11 @@
 const path = require('path')
 const resolve = dir => path.join(__dirname, dir)
 const isProd = process.env.NODE_ENV === 'production' ? true : false
-const devServerPort = 9527
-const mockServerPort = 9528
-const name = 'LZH~'
+
+const devServerPort = 9527 // TODO: get this variable from setting.ts
+const mockServerPort = 9528 // TODO: get this variable from setting.ts
+const name = 'Vue Typescript Admin' // TODO: get this variable from setting.ts
+
 console.log(process.env.NODE_ENV)
 module.exports = {
     publicPath: '/',
