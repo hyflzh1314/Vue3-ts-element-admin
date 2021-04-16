@@ -1,8 +1,11 @@
 <template>
 	<section class="main-container">
-		<transition name="fade-transform" mode="out-in">
-			<router-view :key="key" />
-		</transition>
+		<router-view :key="key" v-slot="{Component }" >
+			<transition name="fade-transform" mode="out-in">
+				<component :is="Component" />
+			</transition>
+		</router-view>
+	
 	</section>
 </template>
 <script lang="ts">

@@ -1,14 +1,15 @@
-
-import { login, loginOut, loginQuery, loginOutQuery } from '@/api/user'
+import { login, loginOut, getUserInfo, ILogin, IUserInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/cookie'
-import { AnyFunction } from 'element-plus/lib/utils/types'
+
+import { asyncRoutes } from '@/router'
+import { filterAsyncRoutes } from '@/router/filterAsyncRoutes'
 
 const getDefaultState = () => {
     return {
         token: getToken(),
         name: '',
         menus: [],
-        roles: ''
+        roles: []
     }
 }
 const state = getDefaultState()
@@ -26,12 +27,15 @@ const mutations = {
     SET_MENUS: (state: any, menus: []) => {
         state.menus = menus
     },
+    SET_ROLES: (state: any, roles: []) => {
+        state.roles = roles
+    },
 }
 
 const actions = {
-    login({ commit }: any, userInfo: loginQuery) {
+    login({ commit }: any, query: ILogin) {
         return new Promise((resolve, reject) => {
-            login(userInfo).then(response => {
+            login(query).then(response => {
                 const { data } = response
                 commit('SET_TOKEN', data.token)
                 commit('SET_NAME', data.name)
@@ -59,6 +63,24 @@ const actions = {
             removeToken() // must remove  token  first
             commit('RESET_STATE')
             resolve('')
+        })
+    },
+    getUserInfo({ commit, state }: any, query: IUserInfo) {
+        return new Promise((resolve, reject) => {
+            getUserInfo({ token: state.token }).then(response => {
+                const { data } = response
+                let accessedRoutes
+                if (data.roles.includes('admin')) {
+                    accessedRoutes = asyncRoutes
+                } else {
+                    accessedRoutes =  filterAsyncRoutes(asyncRoutes, data.roles)
+                }
+                commit('SET_MENUS', accessedRoutes)
+                commit('SET_ROLES', data.roles)
+                resolve(accessedRoutes)
+            }).catch(err => {
+
+            })
         })
     }
 }

@@ -1,6 +1,10 @@
 import axios from 'axios'
 import { AxiosResponse } from 'axios'
+import { getToken } from '@/utils/cookie'
+import store from '@/store'
+import router from '@/router'
 const qs = require('qs')
+import { ElMessage, ElMessageBox } from 'element-plus'
 const service = axios.create({
     baseURL: process.env.VUE_APP_BASE_API,
     timeout: 10000,
@@ -23,10 +27,9 @@ const service = axios.create({
 
 service.interceptors.request.use(
     (config) => {
-        // Add X-Access-Token header to every request, you can add other custom headers here
-        //   if (UserModule.token) {
-        //     config.headers['X-Access-Token'] = UserModule.token
-        //   }
+        if (getToken()) {
+            config.headers['X-Access-Token'] = getToken()
+        }
         return config
     },
     (error) => {
@@ -37,9 +40,30 @@ service.interceptors.response.use(
     (response: AxiosResponse) => {
         const res = response.data
         if (res.code === 200) {
-            return response.data
+            return res
         } else {
-
+            if (res.code === 405 || res.code === 406) {
+                // token失效
+                ElMessageBox.confirm('登录信息过期，可以取消继续留在该页面，或者重新登录', '确定登出', {
+                    confirmButtonText: '重新登录',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    store.dispatch('user/resetToken').then(() => {
+                        router.push({
+                            path: '/login'
+                        })
+                        // location.reload()
+                    })
+                })
+            } else {
+                ElMessage({
+                    message: res.message,
+                    type: 'error',
+                    duration: 1 * 1000
+                })
+            }
+            return Promise.reject()
         }
     },
     (error) => {

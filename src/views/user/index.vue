@@ -1,12 +1,13 @@
 <template>
-    <div class="dashboard">
-        dashboard
-    </div>    
+    <div>
+        UserManagement
+    </div> 
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
+
 export default defineComponent({
-    name: 'Dashboard',
+    name: 'UserManagement',
     setup() {
         
     },

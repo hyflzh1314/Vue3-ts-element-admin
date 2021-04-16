@@ -1,13 +1,13 @@
+import { rawOptionsMap } from './../../vue-next-master/packages/compiler-ssr/src/transforms/ssrTransformComponent';
 import router from './router'
 import store from './store'
+import {RouteRecordRaw} from 'vue-router'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import { ElMessage } from 'element-plus'
 import { getToken } from '@/utils/cookie'
-import { useRoute } from 'vue-router'
 import setting from '@/setting'
 
-const Route = useRoute()
 const defaultTitle = setting.title
 const getPageTitle = (title: string | unknown) => {
     if (title) {
@@ -32,10 +32,26 @@ router.beforeEach(async (to, from, next) => {
             NProgress.done()
         } else {
             const hasGetUserInfo = store.getters.name
+            console.log(hasGetUserInfo)
             if (hasGetUserInfo) {
                 next()
             } else {
-
+                try {
+                    await store.dispatch('user/getUserInfo')
+                    let asyncRoutes = store.getters.menus
+                    asyncRoutes.forEach((route:RouteRecordRaw)=> {
+                        router.addRoute(route)
+                    });
+                    console.log(to)
+                    // next({ path: to.path, replace: true })
+                    // next({ ...to })
+                    next()
+                } catch(error) {
+                    await store.dispatch('user/resetToken')
+                    ElMessage.error(error || 'Has Error')
+                    next(`/login?redirect=${to.path}`)
+                    NProgress.done()
+                }
             }
         }
     } else {

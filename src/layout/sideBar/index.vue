@@ -5,8 +5,9 @@
 	</div>
 </template>
 <script lang="ts">
-	import { defineComponent,computed } from "vue";
-	import SideLog from "./sidebarLogo.vue";
+	import { defineComponent,computed } from "vue"
+	import SideLog from "./sidebarLogo.vue"
+	import { useStore } from 'vuex'
     import setting from "@/setting"
 	export default defineComponent({
 		name: "SideBar",
@@ -15,6 +16,8 @@
 		},
 		setup() {
             const is_show_logo = computed(() => setting.showSidebarLogo)
+			const $store = useStore()
+			console.log($store.getters.menus)
             return {
                 is_show_logo
             }
