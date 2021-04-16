@@ -17,7 +17,7 @@
 		setup() {
             const is_show_logo = computed(() => setting.showSidebarLogo)
 			const $store = useStore()
-			console.log($store.getters.menus)
+			// console.log($store.getters.menus)
             return {
                 is_show_logo
             }

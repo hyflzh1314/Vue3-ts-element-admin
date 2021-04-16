@@ -1,4 +1,4 @@
-import { rawOptionsMap } from './../../vue-next-master/packages/compiler-ssr/src/transforms/ssrTransformComponent';
+
 import router from './router'
 import store from './store'
 import {RouteRecordRaw} from 'vue-router'
@@ -31,9 +31,8 @@ router.beforeEach(async (to, from, next) => {
             next({ path: '/' })
             NProgress.done()
         } else {
-            const hasGetUserInfo = store.getters.name
-            console.log(hasGetUserInfo)
-            if (hasGetUserInfo) {
+            const hasGetMenus = store.getters.menus
+            if (hasGetMenus.length > 0) {
                 next()
             } else {
                 try {
@@ -42,10 +41,7 @@ router.beforeEach(async (to, from, next) => {
                     asyncRoutes.forEach((route:RouteRecordRaw)=> {
                         router.addRoute(route)
                     });
-                    console.log(to)
-                    // next({ path: to.path, replace: true })
-                    // next({ ...to })
-                    next()
+                    next({ ...to, replace: true })
                 } catch(error) {
                     await store.dispatch('user/resetToken')
                     ElMessage.error(error || 'Has Error')

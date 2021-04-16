@@ -1,9 +1,11 @@
 <template>
 	<section class="main-container">
-		<router-view :key="key" v-slot="{Component }" >
-			<transition name="fade-transform" mode="out-in">
-				<component :is="Component" />
-			</transition>
+		<router-view   >
+			<template v-slot="{ Component }">	
+				<transition name="fade-transform" mode="out-in">
+					<component :is="Component" :key="key" />
+				</transition>
+			</template>
 		</router-view>
 	
 	</section>
@@ -16,7 +18,6 @@
 		setup() {
 
             const $route = useRoute()
-
             const key = computed(() => $route.path)
 
             return {
