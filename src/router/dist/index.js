@@ -93,13 +93,14 @@ exports.asyncRoutes = [
 ];
 var router = vue_router_1.createRouter({
     history: vue_router_1.createWebHashHistory(),
-    // scrollBehavior: (to, from, savedPosition) => {
-    //   if (savedPosition) {
-    //     return savedPosition
-    //   } else {
-    //     return { x: 0, y: 0 }
-    //   }
-    // },
+    scrollBehavior: function (to, from, savedPosition) {
+        if (savedPosition) {
+            return savedPosition;
+        }
+        else {
+            return { x: 0, y: 0 };
+        }
+    },
     routes: constantRoutes
 });
 exports["default"] = router;

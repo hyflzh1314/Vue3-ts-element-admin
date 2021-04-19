@@ -1,7 +1,12 @@
 import { RouteRecordRaw, RouteRecordNormalized } from 'vue-router'
 
+interface IRoute extends RouteRecordNormalized {
+  meta: {
+    roles: string[]
+  }
 
-const hasPermission = (roles: string[], route: any) => {
+}
+const hasPermission = (roles: string[], route: IRoute) => {
     if (route.meta && route.meta.roles) {
       return roles.some(role => route.meta.roles.includes(role))
     } else {

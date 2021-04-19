@@ -1,7 +1,7 @@
 
 import router from './router'
 import store from './store'
-import {RouteRecordRaw} from 'vue-router'
+import { RouteRecordRaw } from 'vue-router'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import { ElMessage } from 'element-plus'
@@ -9,7 +9,7 @@ import { getToken } from '@/utils/cookie'
 import setting from '@/setting'
 
 const defaultTitle = setting.title
-const getPageTitle = (title: string | unknown) => {
+const getPageTitle = (title?: string) => {
     if (title) {
         return `${defaultTitle} - ${title}`
     }
@@ -21,8 +21,8 @@ const whiteList = ['/login']
 
 router.beforeEach(async (to, from, next) => {
     NProgress.start()
-    document.title = getPageTitle(to.meta.title)
 
+    document.title = getPageTitle(to.meta.title)
     const hasToken = getToken()
 
     if (hasToken) {
@@ -36,11 +36,13 @@ router.beforeEach(async (to, from, next) => {
                 next()
             } else {
                 try {
+                    // 处理动态路由，浏览器刷新时，重新获取用户信息
                     await store.dispatch('user/getUserInfo')
                     let asyncRoutes = store.getters.menus
                     asyncRoutes.forEach((route:RouteRecordRaw)=> {
                         router.addRoute(route)
                     });
+                    // 打断当前路由，执行新的路由
                     next({ ...to, replace: true })
                 } catch(error) {
                     await store.dispatch('user/resetToken')

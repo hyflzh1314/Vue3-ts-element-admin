@@ -1,5 +1,5 @@
 
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, RouteRecordRaw, RouterOptions } from 'vue-router'
 import Layout from '@/layout/index.vue'
 
 const constantRoutes: Array<RouteRecordRaw> = [
@@ -92,13 +92,13 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
 ]
 const router = createRouter({
   history: createWebHashHistory(),
-  // scrollBehavior: (to, from, savedPosition) => {
-  //   if (savedPosition) {
-  //     return savedPosition
-  //   } else {
-  //     return { x: 0, y: 0 }
-  //   }
-  // },
+  scrollBehavior: (to, from, savedPosition) => {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+  },
   routes: constantRoutes
-})
+} as RouterOptions)
 export default router
