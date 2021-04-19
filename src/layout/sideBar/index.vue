@@ -1,27 +1,43 @@
 <template>
-	<div class="sidebar-container" :class="{'has-logo': is_show_logo}">
+	<div class="sidebar-container" :class="{ 'has-logo': is_show_logo }">
 		<side-log></side-log>
-		<el-scrollbar wrap-class="scrollbar-wrapper"> </el-scrollbar>
+		<el-scrollbar wrap-class="scrollbar-wrapper">
+			<el-menu :collapse="is_collapse" mode="vertical" background-color="#304156" text-color="#ffffff">
+				<sidebar-item
+					v-for="menu in menus"
+					:key="menu.path"
+					:item="menu"
+					:base-path="menu.path"
+					:is-collapse="is_collapse"
+				/>
+			</el-menu>
+		</el-scrollbar>
 	</div>
 </template>
 <script lang="ts">
-	import { defineComponent,computed } from "vue"
-	import SideLog from "./sidebarLogo.vue"
-	import { useStore } from 'vuex'
-    import setting from "@/setting"
+	import { defineComponent, computed, ref } from "vue";
+	import SideLog from "./SidebarLogo.vue";
+	import SidebarItem from "./SidebarItem.vue";
+	import { useStore } from "vuex";
+	import setting from "@/setting";
 	export default defineComponent({
 		name: "SideBar",
 		components: {
 			SideLog,
+			SidebarItem,
 		},
 		setup() {
-            const is_show_logo = computed(() => setting.showSidebarLogo)
-			const $store = useStore()
-			// console.log($store.getters.menus)
-            return {
-                is_show_logo
-            }
-        },
+			const is_show_logo = computed(() => setting.showSidebarLogo);
+			const $store = useStore();
+			const menus = $store.getters.menus;
+			const is_collapse = ref(false);
+			console.log(menus)
+			return {
+				is_show_logo,
+				menus,
+				is_collapse,
+			};
+		},
 	});
 </script>
 <style lang="scss">

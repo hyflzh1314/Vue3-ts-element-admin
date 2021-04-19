@@ -1,12 +1,20 @@
 
 import { createRouter, createWebHashHistory, RouteRecordRaw, RouterOptions } from 'vue-router'
 import Layout from '@/layout/index.vue'
-
+declare module 'vue-router' {
+  interface RouteMeta {
+    title?: string
+    roles?: string[]
+  }
+}
 const constantRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
     component: Layout,
     redirect: '/dashboard',
+    meta: {
+      alwaysShow: true
+    },
     children: [
       {
         path: 'dashboard',
@@ -22,8 +30,11 @@ const constantRoutes: Array<RouteRecordRaw> = [
   },
   {
     path: '/login',
+    component: () => import(/* webpackChunkName: "login" */ '@views/login/login.vue'),
     name: 'Login',
-    component: () => import(/* webpackChunkName: "login" */ '@views/login/login.vue')
+    meta: {
+      hidden: true
+    }
   }
 ]
 export const asyncRoutes: Array<RouteRecordRaw> = [
@@ -34,9 +45,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     name: 'data',
     meta: {
       title: 'Data Analysis',
-      icon: 'lock',
-      roles: ['admin', 'editor'], 
-      alwaysShow: true
+      icon: 'data',
+      roles: ['admin', 'editor']
     },
     children: [
       {
@@ -64,9 +74,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     name: 'role',
     meta: {
       title: 'User Management',
-      icon: 'lock',
-      roles: ['editor'], 
-      alwaysShow: true
+      icon: 'role',
+      roles: ['editor']
     },
     children: [
       {
@@ -79,12 +88,12 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         }
       },
       {
-        path: 'role',
+        path: 'rolem',
         component: () => import(/* webpackChunkName: "roleManagement" */ '@/views/user/role.vue'),
         name: 'RoleManagement',
         meta: {
           title: 'Role',
-          roles: ['admin']
+          roles: ['editor']
         }
       }
     ]

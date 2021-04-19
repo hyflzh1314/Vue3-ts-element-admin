@@ -1,8 +1,16 @@
 import { login, loginOut, getUserInfo, ILogin, IUserInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/cookie'
-
+import { RouteRecordRaw } from 'vue-router'
 import { asyncRoutes } from '@/router'
 import { filterAsyncRoutes } from '@/router/filterAsyncRoutes'
+
+interface IUserState {
+    token: string
+    name: string
+    menus: RouteRecordRaw[]
+    roles: string[]
+}
+
 
 const getDefaultState = () => {
     return {
@@ -10,24 +18,24 @@ const getDefaultState = () => {
         name: '',
         menus: [],
         roles: []
-    }
+    } as IUserState
 }
 const state = getDefaultState()
 
 const mutations = {
-    RESET_STATE: (state: any) => {
+    RESET_STATE: (state: IUserState) => {
         Object.assign(state, getDefaultState())
     },
-    SET_TOKEN: (state: any, token: string) => {
+    SET_TOKEN: (state: IUserState, token: string) => {
         state.token = token
     },
-    SET_NAME: (state: any, name: string) => {
+    SET_NAME: (state: IUserState, name: string) => {
         state.name = name
     },
-    SET_MENUS: (state: any, menus: []) => {
+    SET_MENUS: (state: IUserState, menus: []) => {
         state.menus = menus
     },
-    SET_ROLES: (state: any, roles: []) => {
+    SET_ROLES: (state: IUserState, roles: []) => {
         state.roles = roles
     },
 }
