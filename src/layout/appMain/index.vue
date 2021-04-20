@@ -6,8 +6,8 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import FixedHeader from './fixedHeader.vue'
-import MainContainer from './mainContainer.vue'
+import FixedHeader from './FixedHeader.vue'
+import MainContainer from './MainContainer.vue'
 export default defineComponent({
     name: 'AppMain',
     components: {

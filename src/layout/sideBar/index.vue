@@ -1,14 +1,22 @@
 <template>
-	<div class="sidebar-container" :class="{ 'has-logo': is_show_logo }">
+	<div class="sidebar-container" :class="{ 'has-logo': isShowLogo }">
 		<side-log></side-log>
 		<el-scrollbar wrap-class="scrollbar-wrapper">
-			<el-menu :collapse="is_collapse" mode="vertical" background-color="#304156" text-color="#ffffff">
+			<el-menu
+				:default-active="activeMenu" 
+				:collapse="isCollapse"
+				:unique-opened="false"
+			 	mode="vertical" 
+			 	background-color="#304156"
+			  	text-color="#ffffff"
+				active-text-color="#409eff"
+			  >
 				<sidebar-item
 					v-for="menu in menus"
 					:key="menu.path"
 					:item="menu"
 					:base-path="menu.path"
-					:is-collapse="is_collapse"
+					:is-collapse="isCollapse"
 				/>
 			</el-menu>
 		</el-scrollbar>
@@ -19,6 +27,7 @@
 	import SideLog from "./SidebarLogo.vue";
 	import SidebarItem from "./SidebarItem.vue";
 	import { useStore } from "vuex";
+	import { useRoute } from "vue-router"
 	import setting from "@/setting";
 	export default defineComponent({
 		name: "SideBar",
@@ -27,14 +36,23 @@
 			SidebarItem,
 		},
 		setup() {
-			const is_show_logo = computed(() => setting.showSidebarLogo);
 			const $store = useStore();
 			const menus = $store.getters.menus;
-			const is_collapse = ref(false);
+
+			const $route = useRoute();
+			const activeMenu = computed(() => {
+				const { path }= $route
+				return path
+			})
+			const isShowLogo = computed(() => setting.showSidebarLogo);
+			const isCollapse = ref(false);
+			
+			
 			return {
-				is_show_logo,
 				menus,
-				is_collapse,
+				activeMenu,
+				isShowLogo,
+				isCollapse,
 			};
 		},
 	});
