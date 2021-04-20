@@ -5,6 +5,16 @@ var vue_router_1 = require("vue-router");
 var index_vue_1 = require("@/layout/index.vue");
 var constantRoutes = [
     {
+        path: '/login',
+        component: function () { return Promise.resolve().then(function () { return require(/* webpackChunkName: "login" */ '@views/login/login.vue'); }); },
+        name: 'Login',
+        meta: {
+            hidden: true
+        }
+    }
+];
+exports.asyncRoutes = [
+    {
         path: '/',
         component: index_vue_1["default"],
         redirect: '/dashboard',
@@ -14,7 +24,7 @@ var constantRoutes = [
                 component: function () { return Promise.resolve().then(function () { return require(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'); }); },
                 name: 'Dashboard',
                 meta: {
-                    title: 'dashboard',
+                    title: 'Dashboard',
                     icon: 'dashboard',
                     affix: true
                 }
@@ -22,20 +32,13 @@ var constantRoutes = [
         ]
     },
     {
-        path: '/login',
-        name: 'Login',
-        component: function () { return Promise.resolve().then(function () { return require(/* webpackChunkName: "login" */ '@views/login/login.vue'); }); }
-    }
-];
-exports.asyncRoutes = [
-    {
         path: '/data',
         component: index_vue_1["default"],
         redirect: '/data/analysis',
         name: 'data',
         meta: {
             title: 'Data Analysis',
-            icon: 'lock',
+            icon: 'data',
             roles: ['admin', 'editor'],
             alwaysShow: true
         },
@@ -65,7 +68,7 @@ exports.asyncRoutes = [
         name: 'role',
         meta: {
             title: 'User Management',
-            icon: 'lock',
+            icon: 'role',
             roles: ['editor'],
             alwaysShow: true
         },
@@ -80,7 +83,7 @@ exports.asyncRoutes = [
                 }
             },
             {
-                path: 'role',
+                path: 'rolem',
                 component: function () { return Promise.resolve().then(function () { return require(/* webpackChunkName: "roleManagement" */ '@/views/user/role.vue'); }); },
                 name: 'RoleManagement',
                 meta: {

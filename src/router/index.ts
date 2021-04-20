@@ -9,26 +9,6 @@ declare module 'vue-router' {
 }
 const constantRoutes: Array<RouteRecordRaw> = [
   {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    meta: {
-      alwaysShow: true
-    },
-    children: [
-      {
-        path: 'dashboard',
-        component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
-        name: 'Dashboard',
-        meta: {
-          title: 'dashboard',
-          icon: 'dashboard',
-          affix: true
-        }
-      }
-    ]
-  },
-  {
     path: '/login',
     component: () => import(/* webpackChunkName: "login" */ '@views/login/login.vue'),
     name: 'Login',
@@ -39,6 +19,23 @@ const constantRoutes: Array<RouteRecordRaw> = [
 ]
 export const asyncRoutes: Array<RouteRecordRaw> = [
   {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    children: [
+      {
+        path: 'dashboard',
+        component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
+        name: 'Dashboard',
+        meta: {
+          title: 'Dashboard',
+          icon: 'dashboard',
+          affix: true
+        }
+      }
+    ]
+  },
+  {
     path: '/data',
     component: Layout,
     redirect: '/data/analysis',
@@ -46,7 +43,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     meta: {
       title: 'Data Analysis',
       icon: 'data',
-      roles: ['admin', 'editor']
+      roles: ['admin', 'editor'],
+      alwaysShow: true
     },
     children: [
       {
@@ -75,7 +73,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     meta: {
       title: 'User Management',
       icon: 'role',
-      roles: ['editor']
+      roles: ['editor'],
+      alwaysShow: true
     },
     children: [
       {
@@ -93,7 +92,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         name: 'RoleManagement',
         meta: {
           title: 'Role',
-          roles: ['editor']
+          roles: ['admin']
         }
       }
     ]

@@ -103,6 +103,7 @@
 					}
 				}
 				return { ...props.item, path: "" };
+
 			});
 			const resolvePath = (routePath:string) => {
 				if (isExternal(routePath)) {

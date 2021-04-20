@@ -31,7 +31,6 @@
 			const $store = useStore();
 			const menus = $store.getters.menus;
 			const is_collapse = ref(false);
-			console.log(menus)
 			return {
 				is_show_logo,
 				menus,
