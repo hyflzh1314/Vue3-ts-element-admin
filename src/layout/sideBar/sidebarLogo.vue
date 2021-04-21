@@ -11,7 +11,7 @@
 	import { defineComponent, computed } from "vue";
 	import setting from "@/setting";
 	export default defineComponent({
-		name: "SideLog",
+		name: "SidebarLogo",
 		setup() {
 			const title = computed(() => setting.title)
             return {

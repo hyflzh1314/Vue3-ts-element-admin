@@ -11,13 +11,15 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-
+import { useStore } from 'vuex'
 export default defineComponent({
     name: 'Hamburger',
     setup() {
+        const store = useStore()
         const isActive = ref(false)
         const toggleClick = () => {
-            isActive.value = isActive.value?false:true
+            isActive.value = !isActive.value
+            store.dispatch('app/toggleSideBar')
         }
 
         return {

@@ -1,12 +1,7 @@
 
 import { createRouter, createWebHashHistory, RouteRecordRaw, RouterOptions } from 'vue-router'
 import Layout from '@/layout/index.vue'
-declare module 'vue-router' {
-  interface RouteMeta {
-    title?: string
-    roles?: string[]
-  }
-}
+
 const constantRoutes: Array<RouteRecordRaw> = [
   {
     path: '/login',

@@ -2,11 +2,10 @@ const path = require('path')
 const resolve = dir => path.join(__dirname, dir)
 const isProd = process.env.NODE_ENV === 'production' ? true : false
 
-const devServerPort = 9527 // TODO: get this variable from setting.ts
-const mockServerPort = 9528 // TODO: get this variable from setting.ts
-const name = 'Vue Typescript Admin' // TODO: get this variable from setting.ts
+const devServerPort = 9527 
+const mockServerPort = 9528 
+const title = 'Vue Typescript Admin' 
 
-console.log(process.env.NODE_ENV)
 module.exports = {
     publicPath: '/',
     outputDir: 'dist',
@@ -33,7 +32,7 @@ module.exports = {
         }
     },
     configureWebpack: {
-        name: name,
+        name: title,
         resolve: {
             alias: {
                 '@': resolve('src'),
@@ -49,7 +48,7 @@ module.exports = {
                 config => config.devtool('cheap-module-source-map')
             )
         config.plugin('html').tap(args => {
-            args[0].title = name
+            args[0].title = title
             return args
         })
         config.module

@@ -1,12 +1,13 @@
 <template>
-    <div class="fixed-header">
+    <div class="fixed-header" :class="{'is-opened': !isOpened}">
         <nav-bar>
             
         </nav-bar>
     </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
+import { useStore } from 'vuex'
 import NavBar from './components/NavBar.vue'
 export default defineComponent({
     name: 'FixedHeader',
@@ -14,7 +15,11 @@ export default defineComponent({
         NavBar
     },
     setup() {
-        
+        const store = useStore()
+        const isOpened = computed(() => store.getters.sidebar.opened)
+        return {
+            isOpened
+        }
     },
 })
 </script>
@@ -27,5 +32,8 @@ export default defineComponent({
         right: 0;
         top: 0;
         border: 1px solid red;
+    }
+    .fixed-header.is-opened {
+        width: calc(100% - 50px) !important;
     }
 </style>

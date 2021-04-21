@@ -126,8 +126,7 @@
 <style lang="scss" scoped>
 .svg-icon {
 	margin-right: 10px;
-	color: #fff;
-	font-size: 18px;
+	font-size: 22px;
 	font-weight: 600;
 }
 </style>
