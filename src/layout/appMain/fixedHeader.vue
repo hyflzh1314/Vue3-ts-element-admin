@@ -1,18 +1,19 @@
 <template>
     <div class="fixed-header" :class="{'is-opened': !isOpened}">
-        <nav-bar>
-            
-        </nav-bar>
+        <nav-bar></nav-bar>
+        <tags-view></tags-view>
     </div>
 </template>
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { useStore } from 'vuex'
 import NavBar from './components/NavBar.vue'
+import TagsView from './components/TagsView.vue'
 export default defineComponent({
     name: 'FixedHeader',
     components: {
-        NavBar
+        NavBar,
+        TagsView
     },
     setup() {
         const store = useStore()
@@ -31,7 +32,6 @@ export default defineComponent({
         position: fixed;
         right: 0;
         top: 0;
-        border: 1px solid red;
     }
     .fixed-header.is-opened {
         width: calc(100% - 50px) !important;

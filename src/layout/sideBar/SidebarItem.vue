@@ -124,9 +124,48 @@
 	});
 </script>
 <style lang="scss" scoped>
+.el-menu {
+	.nest-menu .el-menu-item {
+		padding-left: 55px !important;
+	}
+	.el-submenu__title {
+		
+		span {
+			vertical-align: top;
+		}
+	}
+	.el-submenu__icon-arrow {
+		margin-top: 0;
+		transform: translateY(-50%);
+	}
+}
+
+.el-menu--collapse {
+	.el-menu-item{
+		padding: 0px !important ;
+
+		/deep/ div {
+			padding: 0 !important;
+			text-align: center;
+		}
+	}
+	.el-submenu {
+		/deep/ .el-submenu__title {
+			width: 100%;
+			padding: 0 !important;
+			text-align: center;
+			span {
+				display: none;
+			}
+		}
+	} 
+	.svg-icon {
+		margin-right: 0;
+	}	
+}
 .svg-icon {
-	margin-right: 10px;
-	font-size: 22px;
+	margin-right: 8px;
+	font-size: 20px;
 	font-weight: 600;
 }
 </style>

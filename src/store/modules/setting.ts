@@ -1,11 +1,10 @@
 
 import defaultSettings from '@/setting'
-import { Commit }  from 'vuex'
 const { showTagsView, fixedHeader, showSidebarLogo } = defaultSettings
 interface ISettingState {
-    'showTagsView': boolean
-    'showSidebarLogo': boolean
-    'fixedHeader': boolean
+    showTagsView: boolean
+    showSidebarLogo: boolean
+    fixedHeader: boolean
 }
 
 const state: ISettingState = {

@@ -3,5 +3,6 @@ declare module 'vue-router' {
     interface RouteMeta {
         title?: string
         roles?: string[]
+        isTag?: boolean
     }
 }

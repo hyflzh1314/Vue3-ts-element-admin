@@ -1,5 +1,5 @@
 <template>
-    <div class="app-main" :class="{'is-opened': !isOpened}">
+    <div class="app-main" :class="{'is-opened': !isOpened, 'is-show-tags-view': isShowTagsView}">
         <fixed-header></fixed-header>
         <main-container></main-container>
     </div>
@@ -18,8 +18,11 @@ export default defineComponent({
     setup() {
         const store = useStore()
         const isOpened = computed(() => store.getters.sidebar.opened)
+        const isShowTagsView = computed(() => store.state.setting.showTagsView)
+
         return {
-            isOpened
+            isOpened,
+            isShowTagsView
         }
     },
 })

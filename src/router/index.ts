@@ -47,7 +47,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "analysis" */ '@/views/dataAnalys/index.vue'),
         name: 'Analysis',
         meta: {
-          title: 'analysis',
+          title: 'Analysis',
+          isTag: true
         }
       },
       {
@@ -55,7 +56,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "visit" */ '@/views/dataAnalys/visit.vue'),
         name: 'Visit',
         meta: {
-          title: 'visit',
+          title: 'Visit',
+          isTag: true
         }
       }
     ]
@@ -78,6 +80,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         name: 'UserManagement',
         meta: {
           title: 'User',
+          isTag: true,
           roles: ['editor'], 
         }
       },
@@ -87,7 +90,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         name: 'RoleManagement',
         meta: {
           title: 'Role',
-          roles: ['admin']
+          roles: ['admin', 'editor']
         }
       }
     ]
