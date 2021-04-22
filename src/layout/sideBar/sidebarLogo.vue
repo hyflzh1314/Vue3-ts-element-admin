@@ -8,10 +8,10 @@
 	</div>
 </template>
 <script lang="ts">
-	import { defineComponent, computed } from "vue";
-	import setting from "@/setting";
+	import { defineComponent, computed } from 'vue'
+	import setting from '@/setting'
 	export default defineComponent({
-		name: "SidebarLogo",
+		name: 'SidebarLogo',
 		setup() {
 			const title = computed(() => setting.title)
             return {

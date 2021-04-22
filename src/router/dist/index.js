@@ -1,12 +1,12 @@
 "use strict";
 exports.__esModule = true;
-exports.asyncRoutes = void 0;
+exports.resetRouter = exports.asyncRoutes = void 0;
 var vue_router_1 = require("vue-router");
 var index_vue_1 = require("@/layout/index.vue");
 var constantRoutes = [
     {
         path: '/login',
-        component: function () { return Promise.resolve().then(function () { return require(/* webpackChunkName: "login" */ '@views/login/login.vue'); }); },
+        component: function () { return Promise.resolve().then(function () { return require(/* webpackChunkName: "login" */ '@views/login/Login.vue'); }); },
         name: 'Login',
         meta: {
             hidden: true
@@ -26,7 +26,7 @@ exports.asyncRoutes = [
                 meta: {
                     title: 'Dashboard',
                     icon: 'dashboard',
-                    affix: true
+                    affix: true // 控制首页一直在tags-view中显示
                 }
             }
         ]
@@ -45,18 +45,20 @@ exports.asyncRoutes = [
         children: [
             {
                 path: 'analysis',
-                component: function () { return Promise.resolve().then(function () { return require(/* webpackChunkName: "analysis" */ '@/views/dataAnalys/index.vue'); }); },
+                component: function () { return Promise.resolve().then(function () { return require(/* webpackChunkName: "data" */ '@/views/dataAnalys/index.vue'); }); },
                 name: 'Analysis',
                 meta: {
-                    title: 'analysis'
+                    title: 'Analysis',
+                    isTag: true
                 }
             },
             {
                 path: 'visit',
-                component: function () { return Promise.resolve().then(function () { return require(/* webpackChunkName: "visit" */ '@/views/dataAnalys/visit.vue'); }); },
+                component: function () { return Promise.resolve().then(function () { return require(/* webpackChunkName: "data" */ '@/views/dataAnalys/Visit.vue'); }); },
                 name: 'Visit',
                 meta: {
-                    title: 'visit'
+                    title: 'Visit',
+                    isTag: true
                 }
             }
         ]
@@ -75,26 +77,27 @@ exports.asyncRoutes = [
         children: [
             {
                 path: 'user',
-                component: function () { return Promise.resolve().then(function () { return require(/* webpackChunkName: "userManagement" */ '@/views/user/index.vue'); }); },
+                component: function () { return Promise.resolve().then(function () { return require(/* webpackChunkName: "role" */ '@/views/user/index.vue'); }); },
                 name: 'UserManagement',
                 meta: {
                     title: 'User',
+                    isTag: true,
                     roles: ['editor']
                 }
             },
             {
                 path: 'rolem',
-                component: function () { return Promise.resolve().then(function () { return require(/* webpackChunkName: "roleManagement" */ '@/views/user/role.vue'); }); },
+                component: function () { return Promise.resolve().then(function () { return require(/* webpackChunkName: "role" */ '@/views/user/Role.vue'); }); },
                 name: 'RoleManagement',
                 meta: {
                     title: 'Role',
-                    roles: ['admin']
+                    roles: ['admin', 'editor']
                 }
             }
         ]
     }
 ];
-var router = vue_router_1.createRouter({
+var routerOptions = {
     history: vue_router_1.createWebHashHistory(),
     scrollBehavior: function (to, from, savedPosition) {
         if (savedPosition) {
@@ -105,5 +108,11 @@ var router = vue_router_1.createRouter({
         }
     },
     routes: constantRoutes
-});
+};
+var router = vue_router_1.createRouter(routerOptions);
+function resetRouter() {
+    var newRouter = vue_router_1.createRouter(routerOptions);
+    router.matcher = newRouter.matcher;
+}
+exports.resetRouter = resetRouter;
 exports["default"] = router;

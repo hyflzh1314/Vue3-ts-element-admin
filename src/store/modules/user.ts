@@ -1,7 +1,7 @@
 import { login, loginOut, getUserInfo, ILogin, IUserInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/cookie'
 import { RouteRecordRaw } from 'vue-router'
-import { asyncRoutes } from '@/router'
+import { asyncRoutes, resetRouter } from '@/router'
 import { filterAsyncRoutes } from '@/router/filterAsyncRoutes'
 
 interface IUserState {
@@ -58,7 +58,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             loginOut({ token: state.token }).then(response => {
                 removeToken() // must remove  token  first
-                // resetRouter()
+                resetRouter()
                 commit('RESET_STATE')
                 resolve(response)
             }).catch(error => {

@@ -5,7 +5,7 @@ import Layout from '@/layout/index.vue'
 const constantRoutes: Array<RouteRecordRaw> = [
   {
     path: '/login',
-    component: () => import(/* webpackChunkName: "login" */ '@views/login/login.vue'),
+    component: () => import(/* webpackChunkName: "login" */ '@views/login/Login.vue'),
     name: 'Login',
     meta: {
       hidden: true
@@ -25,7 +25,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         meta: {
           title: 'Dashboard',
           icon: 'dashboard',
-          affix: true
+          affix: true  // 控制首页一直在tags-view中显示
         }
       }
     ]
@@ -44,7 +44,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     children: [
       {
         path: 'analysis',
-        component: () => import(/* webpackChunkName: "analysis" */ '@/views/dataAnalys/index.vue'),
+        component: () => import(/* webpackChunkName: "data" */ '@/views/dataAnalys/index.vue'),
         name: 'Analysis',
         meta: {
           title: 'Analysis',
@@ -53,7 +53,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
       },
       {
         path: 'visit',
-        component: () => import(/* webpackChunkName: "visit" */ '@/views/dataAnalys/visit.vue'),
+        component: () => import(/* webpackChunkName: "data" */ '@/views/dataAnalys/Visit.vue'),
         name: 'Visit',
         meta: {
           title: 'Visit',
@@ -76,7 +76,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     children: [
       {
         path: 'user',
-        component: () => import(/* webpackChunkName: "userManagement" */ '@/views/user/index.vue'),
+        component: () => import(/* webpackChunkName: "role" */ '@/views/user/index.vue'),
         name: 'UserManagement',
         meta: {
           title: 'User',
@@ -86,7 +86,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
       },
       {
         path: 'rolem',
-        component: () => import(/* webpackChunkName: "roleManagement" */ '@/views/user/role.vue'),
+        component: () => import(/* webpackChunkName: "role" */ '@/views/user/Role.vue'),
         name: 'RoleManagement',
         meta: {
           title: 'Role',
@@ -96,7 +96,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     ]
   }
 ]
-const router = createRouter({
+const routerOptions = {
   history: createWebHashHistory(),
   scrollBehavior: (to, from, savedPosition) => {
     if (savedPosition) {
@@ -106,5 +106,11 @@ const router = createRouter({
     }
   },
   routes: constantRoutes
-} as RouterOptions)
+} as RouterOptions
+const router = createRouter(routerOptions)
+
+export function resetRouter() {
+  const newRouter = createRouter(routerOptions);
+  (router as any).matcher = (newRouter as any).matcher
+}
 export default router

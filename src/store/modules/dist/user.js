@@ -50,7 +50,7 @@ var actions = {
         return new Promise(function (resolve, reject) {
             user_1.loginOut({ token: state.token }).then(function (response) {
                 cookie_1.removeToken(); // must remove  token  first
-                // resetRouter()
+                router_1.resetRouter();
                 commit('RESET_STATE');
                 resolve(response);
             })["catch"](function (error) {

@@ -7,10 +7,10 @@
     </router-link>
 </template>
 <script lang="ts">
-	import { defineComponent, computed } from "vue";
+	import { defineComponent, computed } from 'vue'
     import { isExternal } from '@/utils/validate'
 	export default defineComponent({
-        name: "SidebarItemLink",
+        name: 'SidebarItemLink',
         props: {
             to: {
                 type: String,

@@ -1,7 +1,10 @@
 <template>
     <div class="fixed-header" :class="{'is-opened': !isOpened}">
-        <nav-bar></nav-bar>
-        <tags-view></tags-view>
+        <nav-bar />
+        <template v-if="isShowTagsView">
+            <tags-view />
+        </template>  
+        
     </div>
 </template>
 <script lang="ts">
@@ -18,8 +21,10 @@ export default defineComponent({
     setup() {
         const store = useStore()
         const isOpened = computed(() => store.getters.sidebar.opened)
+         const isShowTagsView = computed(() => store.state.setting.showTagsView)
         return {
-            isOpened
+            isOpened,
+            isShowTagsView
         }
     },
 })

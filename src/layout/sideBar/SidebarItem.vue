@@ -43,13 +43,13 @@
 	</div>
 </template>
 <script lang="ts">
-	import { defineComponent, PropType, computed } from "vue"
+	import { defineComponent, PropType, computed } from 'vue'
 	import path from 'path'
-	import { RouteRecordRaw, RouteMeta } from "vue-router"
-	import SidebarItemLink from "./SidebarItemLink.vue"
-	import { isExternal } from "@/utils/validate"
+	import { RouteRecordRaw, RouteMeta } from 'vue-router'
+	import SidebarItemLink from './SidebarItemLink.vue'
+	import { isExternal } from '@/utils/validate'
 	export default defineComponent({
-		name: "SidebarItem",
+		name: 'SidebarItem',
 		components: {
 			SidebarItemLink,
 		},

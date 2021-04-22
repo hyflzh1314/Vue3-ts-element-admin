@@ -1,26 +1,24 @@
 <template>
 	<section class="main-container">
-		<router-view>
-			<template v-slot="{ Component }">	
-				<transition name="fade-transform" mode="out-in">
-					<keep-alive>
-						<component :is="Component" :key="key" />
-					</keep-alive>
-				</transition>
-			</template>
+		<router-view v-slot="{ Component }">
+			<transition name="fade-transform" mode="out-in">
+				<keep-alive>
+					<component :is="Component" :key="key" />
+				</keep-alive>
+			</transition>
 		</router-view>
 	
 	</section>
 </template>
 <script lang="ts">
-	import { defineComponent, computed } from "vue";
+	import { defineComponent, computed } from 'vue';
     import { useRoute } from 'vue-router'
 	export default defineComponent({
-		name: "MainContainer",
+		name: 'MainContainer',
 		setup() {
 
-            const $route = useRoute()
-            const key = computed(() => $route.path)
+            const route = useRoute()
+            const key = computed(() => route.path)
 
             return {
                 key

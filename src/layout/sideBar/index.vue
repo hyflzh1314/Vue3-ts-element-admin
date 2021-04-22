@@ -23,14 +23,14 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, computed, ref } from "vue";
-import SidebarLogo from "./SidebarLogo.vue";
-import SidebarItem from "./SidebarItem.vue";
-import { useStore } from "vuex";
-import { useRoute } from "vue-router";
-import defaultSettings from "@/setting";
+import { defineComponent, computed, ref } from 'vue'
+import SidebarLogo from './SidebarLogo.vue'
+import SidebarItem from './SidebarItem.vue'
+import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
+import defaultSettings from '@/setting'
 export default defineComponent({
-  name: "SideBar",
+  name: 'SideBar',
   components: {
     SidebarLogo,
     SidebarItem,
