@@ -85,6 +85,7 @@ const actions = {
                 }
                 commit('SET_MENUS', accessedRoutes)
                 commit('SET_ROLES', data.roles)
+                commit('SET_NAME', data.name)
                 resolve(accessedRoutes)
             }).catch(err => {
 

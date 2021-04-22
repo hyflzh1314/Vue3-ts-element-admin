@@ -34,6 +34,7 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const route = useRoute();
+    // 当前路由
     const initRoute: IRouteItem = {
       path: route.path,
       meta: route.meta,
@@ -72,10 +73,7 @@ export default defineComponent({
         router.push({
             path: prevPath,
         });
-      } else {
-        //  isCurrentPath.value = prevPath
       }
-      
     };
 
     watch(route, (currentRoute) => {
@@ -88,6 +86,9 @@ export default defineComponent({
         routerList.push(routeItem);
       }
       isCurrentPath.value = routeItem.path;
+    },
+    {
+      deep: false
     });
 
     return {
@@ -100,6 +101,7 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
+$tagColor: #009c89;
 .tags-view-box {
   border-bottom: 1px solid #eee;
   background-color: #fff;
@@ -109,7 +111,7 @@ export default defineComponent({
     padding: 2px 4px;
     .tags-list-item {
       display: inline-block;
-      line-height: 36px;
+      line-height: 34px;
       min-width: 80px;
       text-align: center;
       padding: 0 8px;
@@ -123,16 +125,16 @@ export default defineComponent({
         font-size: 12px;
         margin-left: 8px;
         color: #fff;
-        background-color: #009c89;
+        background-color: $tagColor;
         padding: 2px;
         border-radius: 50%;
       }
     }
     .tags-list-item.is-active {
       color: #fff;
-      background-color: #009c89;
+      background-color: $tagColor;
       .el-icon-close {
-        color: #009c89;
+        color: $tagColor;
         background-color: #fff;
       }
     }

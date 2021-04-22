@@ -22,14 +22,16 @@
                 v-model="ruleForm.password"
                 placeholder="password" 
                 clearable 
-                show-password>
+                show-password
+                @keyup.enter.prevent="handleLogin"
+                >
                 </el-input>
             </el-form-item>
             <el-form-item>
                 <el-checkbox v-model="is_remember">记住密码</el-checkbox>
             </el-form-item>
             <el-form-item>
-                <el-button :loading="loading" type="primary"  @click.native.prevent="handleLogin">login</el-button>
+                <el-button :loading="loading" type="primary"  @click.prevent="handleLogin">login</el-button>
             </el-form-item>       
         </el-form>
     </div>
@@ -44,7 +46,6 @@ export default defineComponent({
   setup(props, ctx) {
     const store = useStore();
     const router = useRouter();
-
     const loginForm = ref();
     const ruleForm = reactive({
       username: "",

@@ -53,12 +53,13 @@ router.beforeEach(async (to, from, next) => {
             }
         }
     } else {
+        console.log(whiteList.indexOf(to.path))
         if (whiteList.indexOf(to.path) !== -1) {
             // 如果在白名单内，不重新定向
             next()
         } else {
             // 不在白名单内定向到登录页
-            next(`/login`)
+            next(`/login?redirect=${to.path}`)
             NProgress.done()
         }
 
