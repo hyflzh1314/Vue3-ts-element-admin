@@ -1,5 +1,8 @@
 <template>
-  <div class="sidebar-container" :class="{ 'has-logo': isShowLogo, 'is-opened': isCollapse }">
+  <div
+    class="sidebar-container"
+    :class="{ 'has-logo': isShowLogo, 'is-opened': isCollapse }"
+  >
     <sidebar-logo></sidebar-logo>
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
@@ -23,14 +26,14 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, computed, ref } from 'vue'
-import SidebarLogo from './SidebarLogo.vue'
-import SidebarItem from './SidebarItem.vue'
-import { useStore } from 'vuex'
-import { useRoute } from 'vue-router'
-import defaultSettings from '@/setting'
+import { defineComponent, computed, ref } from "vue";
+import SidebarLogo from "./SidebarLogo.vue";
+import SidebarItem from "./SidebarItem.vue";
+import { useStore } from "vuex";
+import { useRoute } from "vue-router";
+import defaultSettings from "@/setting";
 export default defineComponent({
-  name: 'SideBar',
+  name: "SideBar",
   components: {
     SidebarLogo,
     SidebarItem,
@@ -45,7 +48,7 @@ export default defineComponent({
       return path;
     });
     const isShowLogo = computed(() => defaultSettings.showSidebarLogo);
-    const isCollapse = computed(() => !store.getters.sidebar.opened)
+    const isCollapse = computed(() => !store.getters.sidebar.opened);
     return {
       menus,
       activeMenu,
@@ -65,7 +68,7 @@ export default defineComponent({
   overflow: hidden;
   background-color: #304156;
   transition: width 0.28s;
-
+  z-index: 99;
   .scrollbar-wrapper {
     overflow-x: hidden !important;
   }

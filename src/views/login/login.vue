@@ -124,7 +124,7 @@ export default defineComponent({
     .el-form-item {
       margin-bottom: 20px;
     }
-    /deep/ .el-input__inner {
+    :deep(.el-input__inner) {
       padding-left: 30px;
     }
     .form-icon {
