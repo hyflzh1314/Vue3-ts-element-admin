@@ -2,21 +2,25 @@
 	<div class="sidebar-logo-container">
 		<transition name="sidebarLogoFade">
 			<router-link key="expand" class="sidebar-logo-link" to="/">
-				<h1 class="side-log-title">{{ title }}</h1>
+				<h1 v-if="isShowTitle" class="side-log-title">{{ title }}</h1>
 			</router-link>
 		</transition>
 	</div>
 </template>
 <script lang="ts">
-	import { defineComponent, computed } from 'vue'
-	import setting from '@/setting'
+	import { defineComponent, computed } from "vue";
+	import { useStore } from "vuex";
+	import setting from "@/setting";
 	export default defineComponent({
-		name: 'SidebarLogo',
+		name: "SidebarLogo",
 		setup() {
-			const title = computed(() => setting.title)
-            return {
-                title
-            }
+			const store = useStore();
+			const title = computed(() => setting.title);
+			const isShowTitle = computed(() => store.getters.sidebar.opened)
+			return {
+				title,
+				isShowTitle
+			};
 		},
 	});
 </script>
@@ -37,14 +41,14 @@
 	line-height: 50px;
 	color: #fff;
 	text-align: center;
-    background-color: #2b2f3a;
-    .sidebar-logo-link {
-        display: block;
-        width: 100%;
-    }
-    .side-log-title {
-       font-size: 14px;
-       font-weight: 600;
-    }
+	background-color: #2b2f3a;
+	.sidebar-logo-link {
+		display: block;
+		width: 100%;
+	}
+	.side-log-title {
+		font-size: 14px;
+		font-weight: 600;
+	}
 }
 </style>

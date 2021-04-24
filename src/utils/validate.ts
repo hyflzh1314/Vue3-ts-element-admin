@@ -25,3 +25,14 @@ export const clearReactiveArray = (arr: any[]) => {
   }
 }
 
+// 删除数组中指定的值
+export const removeTargetInArray = (arr: any[], target: any, value: any) => {
+  var l = arr.length
+  if (l === 0) return
+  for (let i = 0; i < l; i++) {
+    if (arr[i][target] === value) {
+      arr.splice(i, 1)
+      break
+    }
+  }
+}

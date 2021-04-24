@@ -1,5 +1,5 @@
 import { login, loginOut, getUserInfo, ILogin, IUserInfo } from '@/api/user'
-import { getToken, setToken, removeToken } from '@/utils/cookie'
+import { getToken, setToken, removeToken, removeLoginInfo } from '@/utils/cookie'
 import { RouteRecordRaw } from 'vue-router'
 import { asyncRoutes, resetRouter } from '@/router'
 import { filterAsyncRoutes } from '@/router/filterAsyncRoutes'
@@ -57,6 +57,7 @@ const actions = {
     logout({ commit, state }: any) {
         return new Promise((resolve, reject) => {
             loginOut({ token: state.token }).then(response => {
+                removeLoginInfo()
                 removeToken() // must remove  token  first
                 resetRouter()
                 commit('RESET_STATE')

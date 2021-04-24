@@ -28,7 +28,7 @@ router.beforeEach(async (to, from, next) => {
     if (hasToken) {
         //  登录状态
         if (to.path === '/login') {
-            next({ path: '/' })
+            next()
             NProgress.done()
         } else {
             const hasGetMenus = store.getters.menus
@@ -39,12 +39,12 @@ router.beforeEach(async (to, from, next) => {
                     // 处理动态路由，浏览器刷新时，重新获取用户信息
                     await store.dispatch('user/getUserInfo')
                     let asyncRoutes = store.getters.menus
-                    asyncRoutes.forEach((route:RouteRecordRaw)=> {
+                    asyncRoutes.forEach((route: RouteRecordRaw) => {
                         router.addRoute(route)
                     });
                     // 打断当前路由，执行新的路由
                     next({ ...to, replace: true })
-                } catch(error) {
+                } catch (error) {
                     await store.dispatch('user/resetToken')
                     ElMessage.error(error || 'Has Error')
                     next(`/login?redirect=${to.path}`)
@@ -53,7 +53,6 @@ router.beforeEach(async (to, from, next) => {
             }
         }
     } else {
-        console.log(whiteList.indexOf(to.path))
         if (whiteList.indexOf(to.path) !== -1) {
             // 如果在白名单内，不重新定向
             next()

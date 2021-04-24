@@ -1,18 +1,12 @@
 <template>
-    <div>
-        UserManagement
-    </div> 
+	<div>UserManagement</div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+	import { defineComponent } from "vue";
 
-export default defineComponent({
-    name: 'UserManagement',
-    setup() {
-        
-    },
-})
+	export default defineComponent({
+		name: "UserManagement",
+	});
 </script>
 <style lang="scss" scoped>
-
 </style>

@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "crypto-js": "^4.0.0",
     "element-plus": "^1.0.2-beta.40",
     "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
