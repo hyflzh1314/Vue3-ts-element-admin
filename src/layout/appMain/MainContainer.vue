@@ -17,9 +17,9 @@
 		setup() {
 			const route = useRoute();
 			const key = computed(() => route.path);
-
 			return {
 				key,
+
 			};
 		},
 	});

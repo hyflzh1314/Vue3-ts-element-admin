@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import { createApp, Directive } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -20,7 +20,11 @@ requireAll(req)
 import SvgIcon from '@/components/SvgIcon/index.vue'
 app.component('svg-icon', SvgIcon)
 
-
+// directives
+import * as directives from '@/directives'
+Object.keys(directives).forEach((key) => {
+    app.directive(key, (directives as { [key: string]:  Directive})[key])
+})
 
 
 app.use(ElementPlus)

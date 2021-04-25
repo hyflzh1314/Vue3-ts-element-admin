@@ -1,7 +1,7 @@
 <template>
 	<div class="app-wrapper">
-		<side-bar></side-bar>
-		<app-main></app-main>
+		<side-bar />
+		<app-main />
 	</div>
 </template>
 <script lang="ts">
