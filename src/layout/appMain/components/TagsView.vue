@@ -152,7 +152,6 @@
 	});
 </script>
 <style lang="scss" scoped>
-$tagColor: #009c89;
 .tags-view-box {
 	position: relative;
 	border-bottom: 1px solid #eee;
@@ -163,42 +162,6 @@ $tagColor: #009c89;
 	.tags-list {
 		font-size: 0;
 		padding: 2px 0;
-
-		.tags-list-item {
-			display: inline-block;
-			line-height: 34px;
-			min-width: 80px;
-			text-align: center;
-			padding: 0 8px;
-			cursor: pointer;
-			font-size: 14px;
-			color: #333;
-			background-color: #eee;
-			border-radius: 4px;
-			margin-right: 8px;
-			border: 1px solid transparent;
-			&:hover {
-				border: 1px solid $tagColor;
-			}
-			.el-icon-close {
-				font-size: 12px;
-				margin-left: 8px;
-				color: #fff;
-				background-color: $tagColor;
-				padding: 2px;
-				border-radius: 50%;
-			}
-		}
-		.tags-list-item.is-active {
-			color: #fff;
-			background-color: $tagColor;
-
-			.el-icon-close {
-				color: $tagColor;
-				background-color: #fff;
-			}
-		}
-
 		:deep(.el-tabs__header) {
 			border: none;
 			margin: 0;
