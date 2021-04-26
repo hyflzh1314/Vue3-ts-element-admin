@@ -24,7 +24,7 @@
 		<div class="tag-menus">
 			<el-dropdown @command="handleCommand" @visible-change="isShow">
 				<span class="el-dropdown-link">
-					<i class="el-icon-menu" :class="{'is-active': isActive}"></i>
+					<i class="el-icon-menu" :class="{ 'is-active': isActive }"></i>
 				</span>
 				<template #dropdown>
 					<el-dropdown-menu>
@@ -42,15 +42,12 @@
 </template>
 <script lang="ts">
 	import { defineComponent, ref, reactive } from "vue";
-	import { useRoute, useRouter, RouteMeta } from "vue-router";
-	import {
-		toStringfy,
-		clearReactiveArray,
-		removeTargetInArray,
-	} from "@/utils/validate";
+	import { useRoute, useRouter, RouteMeta, RouteRecordName } from "vue-router";
+	import { clearReactiveArray, removeTargetInArray } from "@/utils/validate";
 	interface IRouteItem {
 		path: string;
 		meta: RouteMeta;
+		name: RouteRecordName | null | undefined;
 	}
 	export default defineComponent({
 		name: "TagsView",
@@ -61,6 +58,7 @@
 			let initRoute: IRouteItem = {
 				path: route.path,
 				meta: route.meta,
+				name: route.name,
 			};
 
 			let routerList: IRouteItem[] = reactive([]);
@@ -72,11 +70,13 @@
 				routerList.push(initRoute);
 			}
 			const filterArray = (arr: IRouteItem[], route: IRouteItem) => {
-				for (const item of arr) {
-					if (toStringfy(item) === toStringfy(route)) {
+				for (let i = 0; i < arr.length; i++) {
+					if (arr[i].name === route.name) {
+						routerList[i] = route;
 						return false;
 					}
 				}
+
 				return true;
 			};
 			let currentPath = ref<string>(initRoute.path);
@@ -102,12 +102,13 @@
 				}
 			};
 
-			
 			router.beforeResolve((to) => {
-				const { path, meta } = to;
+				const { path, meta, name } = to;
+				console.log(to)
 				const routeItem: IRouteItem = {
 					path,
 					meta,
+					name,
 				};
 				if (filterArray(routerList, routeItem) && meta.isTag && !meta.affix) {
 					routerList.push(routeItem);
@@ -134,10 +135,10 @@
 					}
 				}
 			};
-			let isActive = ref<boolean>(false)
+			let isActive = ref<boolean>(false);
 			const isShow = (status: boolean) => {
-				isActive.value = status
-			}
+				isActive.value = status;
+			};
 
 			return {
 				routerList,
@@ -146,7 +147,7 @@
 				deleteRoute,
 				handleCommand,
 				isShow,
-				isActive
+				isActive,
 			};
 		},
 	});
@@ -161,7 +162,7 @@
 
 	.tags-list {
 		font-size: 0;
-		padding: 2px 0;
+		padding: 4px 0;
 		:deep(.el-tabs__header) {
 			border: none;
 			margin: 0;
@@ -214,7 +215,6 @@
 				transform: rotate(90deg);
 			}
 		}
-		
 	}
 }
 </style>

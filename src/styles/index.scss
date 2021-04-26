@@ -66,3 +66,12 @@ audio {
 div:focus {
     outline: none;
 }
+
+// table 可点击跳转的链接
+.table-link {
+    color: $tableLinkColor;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
+}

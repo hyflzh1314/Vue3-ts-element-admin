@@ -2,9 +2,7 @@
 	<section class="main-container">
 		<router-view v-slot="{ Component }">
 			<transition name="fade-transform" mode="out-in">
-				<keep-alive>
-					<component :is="Component" />
-				</keep-alive>
+				<component :is="Component" />
 			</transition>
 		</router-view>
 	</section>
@@ -30,9 +28,9 @@
 	min-height: 100vw;
 	overflow: hidden;
 	background-color: #f0f0f0;
-	padding: 50px 20px 20px;
+	padding: 58px 8px 20px;
 }
 .is-show-tags-view .main-container {
-	padding-top: 90px;
+	padding-top: 98px;
 }
 </style>

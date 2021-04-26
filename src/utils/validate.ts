@@ -16,6 +16,15 @@ export const isValidURL = (url: string) => {
 
 export const toStringfy = (o: object) => JSON.stringify(o)
 
+// 添加响应式Array值
+
+export const addReactiveArray = (reactiveArr: any[], arr: any[]) => {
+  if(arr.length === 0) return
+  arr.forEach((item) => {
+    reactiveArr.push(item)
+  })
+}
+
 // 清空响应式Array
 export const clearReactiveArray = (arr: any[]) => {
   var l = arr.length

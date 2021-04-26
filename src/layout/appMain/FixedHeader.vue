@@ -36,6 +36,7 @@
 	position: fixed;
 	right: 0;
 	top: 0;
+	z-index: 99;
 }
 .fixed-header.is-opened {
 	width: calc(100% - 50px) !important;

@@ -52,6 +52,16 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         }
       },
       {
+        path: 'details/:id',
+        component: () => import(/* webpackChunkName: "data" */ '@/views/dataAnalys/ListDetails.vue'),
+        name: 'ListDetails',
+        meta: {
+          hidden: true,
+          title: 'ListDetails',
+          isTag: true
+        }
+      },
+      {
         path: 'visit',
         component: () => import(/* webpackChunkName: "data" */ '@/views/dataAnalys/Visit.vue'),
         name: 'Visit',
@@ -81,7 +91,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         meta: {
           title: 'User',
           isTag: true,
-          roles: ['editor'], 
+          roles: ['editor'],
         }
       },
       {
