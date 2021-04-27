@@ -11,10 +11,10 @@
 					Dashboard
 				</el-tab-pane>
 				<el-tab-pane
-					:key="item.path"
+					:key="item.fullPath"
 					v-for="item in routerList"
 					:label="item.meta.title"
-					:name="item.path"
+					:name="item.fullPath"
 					:closable="true"
 				>
 					{{ item.meta.title }}
@@ -45,9 +45,11 @@
 	import { useRoute, useRouter, RouteMeta, RouteRecordName } from "vue-router";
 	import { clearReactiveArray, removeTargetInArray } from "@/utils/validate";
 	interface IRouteItem {
-		path: string;
+		fullPath: string;
 		meta: RouteMeta;
 		name: RouteRecordName | null | undefined;
+		query?: any,
+		params?: any,
 	}
 	export default defineComponent({
 		name: "TagsView",
@@ -56,11 +58,15 @@
 			const route = useRoute();
 			// 页面刷新时当前路由
 			let initRoute: IRouteItem = {
-				path: route.path,
+				fullPath: route.fullPath,
 				meta: route.meta,
 				name: route.name,
+				query: route.query,
+				params: route.params
 			};
-
+			if(initRoute.meta.isSetTagTitle) {
+				initRoute.meta.title = initRoute.query.title || initRoute.params.title
+			}
 			let routerList: IRouteItem[] = reactive([]);
 			let homePath = "/dashboard"; //首页路由
 			let prevPath = homePath;
@@ -71,49 +77,48 @@
 			}
 			const filterArray = (arr: IRouteItem[], route: IRouteItem) => {
 				for (let i = 0; i < arr.length; i++) {
-					if (arr[i].name === route.name) {
+					if (arr[i].fullPath === route.fullPath) {
 						routerList[i] = route;
 						return false;
 					}
 				}
-
 				return true;
 			};
-			let currentPath = ref<string>(initRoute.path);
+			let currentPath = ref<string>(initRoute.fullPath);
 			const tagsClick = (target: any) => {
 				let targetName = target.paneName;
 				currentPath.value = targetName;
-				router.push({
-					path: targetName,
-				});
+				router.push(targetName);
 			};
 			const deleteRoute = (targetName: string) => {
-				removeTargetInArray(routerList, "path", targetName);
+				removeTargetInArray(routerList, "fullPath", targetName);
 				if (routerList.length > 0) {
-					prevPath = routerList[routerList.length - 1].path;
+					prevPath = routerList[routerList.length - 1].fullPath;
 				} else {
 					prevPath = homePath;
 				}
 				if (targetName === currentPath.value) {
 					//   删除当前tags时进行路由跳转
-					router.push({
-						path: prevPath,
-					});
+					router.push(prevPath);
 				}
 			};
 
 			router.beforeResolve((to) => {
-				const { path, meta, name } = to;
-				console.log(to)
+				let { fullPath, meta, name, query, params } = to;
+				if(meta.isSetTagTitle) {
+					meta.title = query.title || params.title
+				}
 				const routeItem: IRouteItem = {
-					path,
+					fullPath,
 					meta,
 					name,
+					query,
+					params
 				};
 				if (filterArray(routerList, routeItem) && meta.isTag && !meta.affix) {
 					routerList.push(routeItem);
 				}
-				currentPath.value = path;
+				currentPath.value = fullPath;
 				initRoute = routeItem;
 			});
 
@@ -122,9 +127,7 @@
 				if (command === "closeAll") {
 					clearReactiveArray(routerList);
 					currentPath.value = homePath;
-					router.push({
-						path: homePath,
-					});
+					router.push(homePath);
 				} else {
 					if (currentPath.value === homePath) {
 						// 处理当前路由为首页时

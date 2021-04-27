@@ -5,7 +5,7 @@
 			<el-table-column align="center" prop="id" label="ID" width="180"> </el-table-column>
 			<el-table-column align="center" label="标题">
 				<template #default="scope">
-					<div class="table-link" @click="link(scope.row.id)">
+					<div class="table-link" @click="link(scope.row)">
 						<span>{{ scope.row.title }}</span>
 					</div>
 				</template>
@@ -57,9 +57,14 @@
 			})
 			
 
-			const link = (id: number) => {
+			const link = (row: any) => {
+				let { id, title } = row
 				router.push({
-					path: `details/${id}`
+					path: 'details',
+					query: {
+						id,
+						title 
+					}
 				})
 			}
 

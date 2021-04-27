@@ -52,13 +52,14 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         }
       },
       {
-        path: 'details/:id',
+        path: 'details',
         component: () => import(/* webpackChunkName: "data" */ '@/views/dataAnalys/ListDetails.vue'),
         name: 'ListDetails',
         meta: {
           hidden: true,
           title: 'ListDetails',
-          isTag: true
+          isTag: true,
+          isSetTagTitle: true
         }
       },
       {

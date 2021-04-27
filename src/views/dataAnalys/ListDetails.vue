@@ -1,6 +1,6 @@
 <template>
 	<div class="fruits-details">
-		<p>id:{{ id }}</p>
+		<p>title:{{ title }}</p>
 	</div>
 </template>
 <script lang="ts">
@@ -10,9 +10,9 @@
 		name: "ListDetails",
 		setup() {
 			const route = useRoute();
-			const id = computed(() => route.params.id);
+			const title = computed(() => route.query.title);
 			return {
-				id,
+				title,
 			};
 		},
 	});
