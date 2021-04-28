@@ -135,10 +135,6 @@
 			vertical-align: top;
 		}
 	}
-	.el-submenu__icon-arrow {
-		margin-top: 0;
-		transform: translateY(-50%);
-	}
 }
 
 .el-menu--collapse {

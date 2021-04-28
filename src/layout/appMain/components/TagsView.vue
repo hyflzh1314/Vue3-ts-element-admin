@@ -7,17 +7,17 @@
 				@tab-click="tagsClick"
 				@tab-remove="deleteRoute"
 			>
-				<el-tab-pane label="Dashboard" name="/dashboard" :closable="false">
-					Dashboard
+				<el-tab-pane label="首页" name="/dashboard" :closable="false">
+					首页
 				</el-tab-pane>
 				<el-tab-pane
 					:key="item.fullPath"
 					v-for="item in routerList"
-					:label="item.meta.title"
+					:label="item.title"
 					:name="item.fullPath"
 					:closable="true"
 				>
-					{{ item.meta.title }}
+					{{ item.title }}
 				</el-tab-pane>
 			</el-tabs>
 		</div>
@@ -48,8 +48,9 @@
 		fullPath: string;
 		meta: RouteMeta;
 		name: RouteRecordName | null | undefined;
-		query?: any,
-		params?: any,
+		query?: any;
+		params?: any;
+		title?: string | unknown;
 	}
 	export default defineComponent({
 		name: "TagsView",
@@ -62,10 +63,11 @@
 				meta: route.meta,
 				name: route.name,
 				query: route.query,
-				params: route.params
+				params: route.params,
+				title: route.meta.title,
 			};
-			if(initRoute.meta.isSetTagTitle) {
-				initRoute.meta.title = initRoute.query.title || initRoute.params.title
+			if (initRoute.meta.isSetTagTitle) {
+				initRoute.title = initRoute.query.title || initRoute.params.title;
 			}
 			let routerList: IRouteItem[] = reactive([]);
 			let homePath = "/dashboard"; //首页路由
@@ -105,15 +107,19 @@
 
 			router.beforeResolve((to) => {
 				let { fullPath, meta, name, query, params } = to;
-				if(meta.isSetTagTitle) {
-					meta.title = query.title || params.title
+				let title: string | unknown = "";
+				if (meta.isSetTagTitle) {
+					title = query.title || params.title;
+				} else {
+					title = meta.title;
 				}
 				const routeItem: IRouteItem = {
 					fullPath,
 					meta,
 					name,
 					query,
-					params
+					params,
+					title,
 				};
 				if (filterArray(routerList, routeItem) && meta.isTag && !meta.affix) {
 					routerList.push(routeItem);

@@ -23,9 +23,9 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
         name: 'Dashboard',
         meta: {
-          title: 'Dashboard',
+          title: '首页',
           icon: 'dashboard',
-          affix: true  // 控制首页一直在tags-view中显示
+          affix: true 
         }
       }
     ]
@@ -36,7 +36,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     redirect: '/data/analysis',
     name: 'data',
     meta: {
-      title: 'Data Analysis',
+      title: '数据概览',
       icon: 'data',
       roles: ['admin', 'editor'],
       alwaysShow: true
@@ -47,7 +47,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "data" */ '@/views/dataAnalys/index.vue'),
         name: 'Analysis',
         meta: {
-          title: 'Analysis',
+          title: '数据分析',
           isTag: true
         }
       },
@@ -57,7 +57,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         name: 'ListDetails',
         meta: {
           hidden: true,
-          title: 'ListDetails',
+          title: '数据详情',
           isTag: true,
           isSetTagTitle: true
         }
@@ -67,7 +67,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "data" */ '@/views/dataAnalys/Visit.vue'),
         name: 'Visit',
         meta: {
-          title: 'Visit',
+          title: '访客数据',
           isTag: true
         }
       }
@@ -79,7 +79,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     redirect: '/role/user',
     name: 'role',
     meta: {
-      title: 'User Management',
+      title: '用户管理',
       icon: 'role',
       roles: ['editor'],
       alwaysShow: true
@@ -90,7 +90,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "role" */ '@/views/user/index.vue'),
         name: 'UserManagement',
         meta: {
-          title: 'User',
+          title: '用户',
           isTag: true,
           roles: ['editor'],
         }
@@ -100,7 +100,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "role" */ '@/views/user/Role.vue'),
         name: 'RoleManagement',
         meta: {
-          title: 'Role',
+          title: '权限',
           roles: ['admin', 'editor']
         }
       }
