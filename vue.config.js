@@ -83,17 +83,17 @@ module.exports = {
                         name: 'chunk-libs',
                         test: /[\\/]node_modules[\\/]/,
                         priority: 10,
-                        chunks: 'initial' // only package third parties that are initially dependent
+                        chunks: 'initial' // 只分割同步引入的模块
                     },
                     elementUI: {
-                        name: 'chunk-elementUI', // split elementUI into a single package
-                        priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
-                        test: /[\\/]node_modules[\\/]_?element-plus(.*)/ // in order to adapt to cnpm
+                        name: 'chunk-elementUI', // 将element单独打包
+                        priority: 20, // 优先级要比app和lib高，否则会被打到app和lib包内
+                        test: /[\\/]node_modules[\\/]_?element-plus(.*)/ 
                     },
                     commons: {
                         name: 'chunk-commons',
-                        test: resolve('src/components'), // can customize your rules
-                        minChunks: 3, //  minimum common number
+                        test: resolve('src/components'), // 匹配规则
+                        minChunks: 3, //  模块至少使用次数
                         priority: 5,
                         reuseExistingChunk: true
                     }
